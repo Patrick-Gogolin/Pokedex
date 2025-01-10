@@ -9,16 +9,16 @@
     width: 12px;
 
 }
-  
-  *::-webkit-scrollbar-track {
+
+*::-webkit-scrollbar-track {
     background: #FEEFC3;
-  }
-  
-  *::-webkit-scrollbar-thumb {
+}
+
+*::-webkit-scrollbar-thumb {
     background-color: navy;
     border-radius: 20px;
     border: 1px solid grey;
-  }
+}
 
 html {
     height: 100%;
@@ -39,7 +39,7 @@ body {
 }
 
 p {
-    color: white; 
+    color: white;
 }
 
 .font-size {
@@ -98,6 +98,19 @@ header {
     justify-content: center;
 }
 
+#search-input-field {
+    display: none;
+}
+
+.load-more-pokemon-wrapper {
+    color: white;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
 /* Load-more-Button */
 
 .load-more-button-container {
@@ -113,7 +126,7 @@ header {
 
 .load-more-button-container button:hover {
     cursor: pointer;
-	transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .load-more-button-container button img {
@@ -144,7 +157,7 @@ header {
 
 .card:hover {
     cursor: pointer;
-	transform: scale(1.02);
+    transform: scale(1.02);
 }
 
 .single-card {
@@ -152,11 +165,10 @@ header {
     padding: 0.5em;
     border-radius: 15px;
     width: 16em;
-    height: 38em;
 }
 
 .single-card h1 {
-   font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .pokemon-image-container {
@@ -222,7 +234,7 @@ header {
 
 .dialog {
     background-color: rgba(128, 128, 128, 0.9);
-    z-index: 999; 
+    z-index: 999;
     position: fixed;
     left: 0;
     right: 0;
@@ -332,16 +344,41 @@ progress {
     -moz-appearance: none;
     appearance: none;
     border: none;
+    height: 10px;
 }
 
 progress::-webkit-progress-bar {
-    background-color: white;
+    background-color: transparent;
     border-radius: 20px;
-    height: 5px;
+    height: 10px;
 }
 
-progress::-webkit-progress-value {
+/* progress::-webkit-progress-value {
     background: linear-gradient(to right, red, green);
+} */
+
+progress.low::-webkit-progress-value {
+    background: red;
+}
+
+progress.medium::-webkit-progress-value {
+    background: orange;
+}
+
+progress.high::-webkit-progress-value {
+    background: green;
+}
+
+progress.low::-moz-progress-bar {
+    background: red;
+}
+
+progress.medium::-moz-progress-bar {
+    background: orange;
+}
+
+progress.high::-moz-progress-bar {
+    background: green;
 }
 
 .pokemon-not-found-container {
@@ -354,23 +391,83 @@ progress::-webkit-progress-value {
     align-items: center;
 }
 
-.type-grass { background-color: #78C850; }
-.type-fire { background-color: #F08030; }
-.type-water { background-color: #6890F0; }
-.type-bug { background-color: #A8B820; }
-.type-normal { background-color: #A8A878; }
-.type-poison { background-color: #A040A0; }
-.type-electric { background-color: #F8D030; }
-.type-ground { background-color: #E0C068; }
-.type-fighting { background-color: #C03028; }
-.type-psychic { background-color: #F85888; }
-.type-rock { background-color: #B8A038; }
-.type-ghost { background-color: #705898; }
-.type-ice { background-color: #98D8D8; }
-.type-dragon { background-color: #7038F8; }
-.type-dark { background-color: #705848; }
-.type-steel { background-color: #B8B8D0; }
-.type-fairy { background-color: #EE99AC; }
+.stats {
+    height: 150px;
+    overflow: auto;
+    scrollbar-width: 0px;
+}
+
+.stats::-webkit-scrollbar {
+    display: none;
+}
+
+.type-grass {
+    background-color: #78C850;
+}
+
+.type-fire {
+    background-color: #F08030;
+}
+
+.type-water {
+    background-color: #6890F0;
+}
+
+.type-bug {
+    background-color: #A8B820;
+}
+
+.type-normal {
+    background-color: #A8A878;
+}
+
+.type-poison {
+    background-color: #A040A0;
+}
+
+.type-electric {
+    background-color: #F8D030;
+}
+
+.type-ground {
+    background-color: #E0C068;
+}
+
+.type-fighting {
+    background-color: #C03028;
+}
+
+.type-psychic {
+    background-color: #F85888;
+}
+
+.type-rock {
+    background-color: #B8A038;
+}
+
+.type-ghost {
+    background-color: #705898;
+}
+
+.type-ice {
+    background-color: #98D8D8;
+}
+
+.type-dragon {
+    background-color: #7038F8;
+}
+
+.type-dark {
+    background-color: #705848;
+}
+
+.type-steel {
+    background-color: #B8B8D0;
+}
+
+.type-fairy {
+    background-color: #EE99AC;
+}
 
 .type-padding {
     padding: 0.25em 0.5em;
@@ -472,8 +569,13 @@ progress::-webkit-progress-value {
 
 /* Spinner Animation */
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 footer {
@@ -513,6 +615,7 @@ footer {
     .close-Button-container {
         flex-direction: column;
     }
+
     .dialog {
         flex-direction: column;
     }
@@ -523,6 +626,7 @@ footer {
         justify-content: space-between;
         margin-top: 1em;
     }
+
     #previous-button {
         display: none;
     }
@@ -570,18 +674,17 @@ footer {
     .next-image-button {
         padding: 0.5em 1em;
     }
+
     .next-image-button-disabled {
         padding: 0.5em 1em;
     }
+
     .previous-image-button {
         padding: 0.5em 1em;
     }
+
     .previous-image-button-disabled {
         padding: 0.5em 1em;
-    }
-
-    .single-card {
-        height: 37em;
     }
 
     .close-button {

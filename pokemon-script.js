@@ -1,13 +1,14 @@
 BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
 
 let loadedPokemon = [];
-let amountPokemons = 550;
+let amountPokemons = 31;
 
 async function init() {
     showSpinner();
     try {
         await loadPokemon();
         hideSpinner();
+        showSearch();
         renderLoadMoreButton();
     } catch (error) {
         console.error('Error initializing data:', error);
@@ -17,15 +18,14 @@ async function init() {
 
 async function loadPokemon() {
     try {
-        for (let i = 520; i < amountPokemons; i++) {
+        const requests = [];
+        for (let i = 1; i < amountPokemons; i++) {
             let url = BASE_URL + i;
-            let response = await fetch(url);
-            let pokemons = await response.json();
-            loadedPokemon.push(pokemons);
+            requests.push(fetch(url).then(response => response.json()));
         }
+        loadedPokemon = await Promise.all(requests);
         renderPokemonCard();
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
@@ -93,6 +93,14 @@ function hideSpinner() {
     document.getElementById('loading-spinner').style.display = 'none';
 }
 
+function hideSearch() {
+    document.getElementById('search-input-field').style.display = 'none';
+}
+
+function showSearch() {
+    document.getElementById('search-input-field').style.display = 'block';
+}
+
 function openDialog(i) {
     renderSingleCard(i);
     let overlayer = document.getElementById('overlayer');
@@ -148,7 +156,15 @@ function getStatsForSingleCard(i, array) {
         const statContainer = document.getElementById(`stats-${i}`);
         const stat = array['stats'][x]['base_stat'];
         const statName = array['stats'][x]['stat']['name'];
-        statContainer.innerHTML += generateStatsHtml(statName, stat);
+        let progressClass = '';
+        if (stat < 40) {
+            progressClass = 'low';
+        } else if (stat < 80) {
+            progressClass = 'medium';
+        } else {
+            progressClass = 'high';
+        }
+        statContainer.innerHTML += generateStatsHtml(statName, stat, progressClass);
     }
 }
 

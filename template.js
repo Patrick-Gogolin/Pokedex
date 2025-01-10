@@ -23,9 +23,12 @@ function generatePokemonCardHtml(i, name, pokemon, height, weight) {
 }
 
 function generateLoadMoreButtonHtml() {
-    return /*html*/` 
+    return /*html*/`
+    <div class="load-more-pokemon-wrapper">
+        <span>Catch more Pokemon!</span>
         <button onclick="loadMorePokemon()"><img src="img/pokeball.png" alt="Pokeball">
-        </button>`;
+        </button>
+    </div>`;
 }
 
 function generateLoadMoreSpinnerHtml() {
@@ -152,10 +155,13 @@ function generateSingleCardType(type) {
         <p class="bg-${type} type-padding">${type}</p>`;
 }
 
-function generateStatsHtml(statName, stat) {
+function generateStatsHtml(statName, stat, progressClass) {
     return /*html*/`
-    <label for="file"><b>${statName}:</b> <b>${stat}</b></label>
-    <progress id="file" value="${stat}" max="275"></progress>`;
+    <div class="progress-wrapper">
+        <label for="file"><b>${statName}:</b> <b>${stat}</b></label>
+        <progress class="${progressClass}" id="file" value="${stat}" max="275"></progress>
+    </div>`;
+ 
 }
 
 function generateMovesHtml(move) {
@@ -166,6 +172,6 @@ function generateMovesHtml(move) {
 function generateContentNotFoundHtml() {
     return /*html*/`
      <div class="pokemon-not-found-container">
-            <p>Leider kein Pokémon gefunden. Lade mehr Pokemon und versuche deine Suche erneut oder übrprüfe deine Sucheingabe</p>
+            <p>Unfortunately, no Pokémon found. Load more Pokémon and try your search again, or check your search input.</p>
         </div>`;
 }
